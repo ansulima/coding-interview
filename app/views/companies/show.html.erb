@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<%= turbo_frame_tag @company do %>
+  <p>
+    <strong>Nome:</strong>
+    <%= @company.name %>
+  </p>
+
+  <%= link_to 'Editar esta empresa', edit_company_path(@company), class: "btn btn-secondary" %>
+<% end %>
+
+<hr>
+<%= link_to 'Voltar para todas as empresas', companies_path %>

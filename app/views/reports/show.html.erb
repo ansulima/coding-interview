@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2><%= @report.name %></h2>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <p><strong>Status:</strong> 
+            <span class="badge bg-<%= status_badge_color(@report.status) %>">
+              <%= @report.status.humanize %>
+            </span>
+          </p>
+          <p><strong>Criado em:</strong> <%= l(@report.created_at, format: :long) %></p>
+          <% if @report.updated_at != @report.created_at %>
+            <p><strong>Atualizado em:</strong> <%= l(@report.updated_at, format: :long) %></p>
+          <% end %>
+        </div>
+        <div class="col-md-6">
+          <% if @report.completed? && @report.file_path.present? %>
+            <div class="alert alert-success">
+              <p>O relatório foi gerado com sucesso!</p>
+              <%= link_to 'Download do Relatório', download_report_path(@report), class: 'btn btn-success' %>
+            </div>
+          <% elsif @report.failed? %>
+            <div class="alert alert-danger">
+              <p>Ocorreu um erro ao gerar o relatório.</p>
+            </div>
+          <% else %>
+            <div class="alert alert-info">
+              <p>O relatório está sendo processado. Por favor, atualize a página em alguns instantes.</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @report.parameters.present? %>
+        <div class="mb-4">
+          <h4>Parâmetros do Relatório</h4>
+          <pre><%= JSON.pretty_generate(JSON.parse(@report.parameters)) rescue @report.parameters %></pre>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <%= link_to 'Voltar para a lista de relatórios', reports_path, class: 'btn btn-secondary' %>
+        <%= link_to 'Gerar Novo Relatório', new_report_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+</div>

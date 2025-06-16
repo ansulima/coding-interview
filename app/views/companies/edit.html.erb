@@ -1,0 +1,7 @@
+<%= turbo_frame_tag @company do %>
+  <h1>Editando Empresa</h1>
+
+  <%= render 'form', company: @company %>
+
+  <%= link_to 'Cancelar', company_path(@company) %>
+<% end %>

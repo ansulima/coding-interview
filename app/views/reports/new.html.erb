@@ -1,0 +1,70 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2>Novo Relatório</h2>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: @report, url: reports_path, local: true) do |form| %>
+            <% if @report.errors.any? %>
+              <div class="alert alert-danger">
+                <h4><%= pluralize(@report.errors.count, "erro") %> impediram este relatório de ser salvo:</h4>
+                <ul>
+                  <% @report.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :name, 'Nome do Relatório', class: 'form-label' %>
+              <%= form.text_field :name, class: 'form-control', required: true %>
+              <div class="form-text">Dê um nome descritivo para o relatório</div>
+            </div>
+
+            <div class="mb-3">
+              <h5>Opções do Relatório</h5>
+              
+              <div class="form-check mb-2">
+                <%= check_box_tag 'report[parameters][include_users]', '1', true, class: 'form-check-input' %>
+                <%= label_tag 'report_parameters_include_users', 'Incluir usuários', class: 'form-check-label' %>
+              </div>
+              
+              <div class="form-check mb-2">
+                <%= check_box_tag 'report[parameters][include_companies]', '1', true, class: 'form-check-input' %>
+                <%= label_tag 'report_parameters_include_companies', 'Incluir empresas', class: 'form-check-label' %>
+              </div>
+              
+              <div class="form-check mb-2">
+                <%= check_box_tag 'report[parameters][include_tweets]', '1', true, class: 'form-check-input' %>
+                <%= label_tag 'report_parameters_include_tweets', 'Incluir tweets', class: 'form-check-label' %>
+              </div>
+              
+              <div class="form-group mt-3">
+                <%= label_tag 'report_parameters_date_range', 'Período', class: 'form-label' %>
+                <div class="row">
+                  <div class="col">
+                    <%= date_field_tag 'report[parameters][start_date]', 1.month.ago.to_date, class: 'form-control' %>
+                  </div>
+                  <div class="col-auto align-self-center">até</div>
+                  <div class="col">
+                    <%= date_field_tag 'report[parameters][end_date]', Date.today, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <%= link_to 'Cancelar', reports_path, class: 'btn btn-secondary me-md-2' %>
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-file-earmark-text me-1"></i> Gerar Relatório
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
