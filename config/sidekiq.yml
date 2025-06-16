@@ -1,0 +1,10 @@
+---
+:concurrency: 5
+:queues:
+  - default
+  - mailers
+:timeout: 30
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:verbose: false
+:environment: development

@@ -46,9 +46,65 @@ Sistema desenvolvido para avaliação técnica com Ruby on Rails. O projeto abra
 
 ## ▶️ Como rodar
 
-**preencher como rodar**
+### Pré-requisitos
+- Docker e Docker Compose instalados
+- Git instalado
 
+### Passos para execução
+
+1. **Clone o repositório**
+   ```bash
+   git clone <seu-repositorio-forkado>
+   cd coding-interview
+   ```
+
+2. **Construa e inicie os containers**
+   ```bash
+   docker-compose build
+   docker-compose up -d
+   ```
+
+3. **Crie o banco de dados e execute as migrações**
+   ```bash
+   docker-compose exec web rails db:create
+   docker-compose exec web rails db:migrate
+   ```
+
+4. **Acesse a aplicação**
+   Abra seu navegador e acesse: http://localhost:3000
+
+5. **Para parar a aplicação**
+   ```bash
+   docker-compose down
+   ```
 
 ## Como testar
 
-**preencher como testar**
+### Executando os testes
+
+1. **Execute todos os testes**
+   ```bash
+   docker-compose exec web rspec
+   ```
+
+2. **Executar um arquivo de teste específico**
+   ```bash
+   docker-compose exec web rspec spec/models/user_spec.rb
+   ```
+
+3. **Executar um teste específico**
+   ```bash
+   docker-compose exec web rspec spec/models/user_spec.rb:10
+   ```
+   (substitua :10 pelo número da linha do teste)
+
+4. **Verificar cobertura de testes**
+   Após executar os testes, um relatório de cobertura será gerado em `coverage/index.html`
+   
+5. **Executar o console do Rails para testes manuais**
+   ```bash
+   docker-compose exec web rails console --sandbox
+   ```
+
+### Testando endpoints da API
+Você pode usar ferramentas como Postman, cURL ou Insomnia para testar os endpoints da API. Certifique-se de que a aplicação esteja rodando antes de fazer as requisições.

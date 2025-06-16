@@ -1,4 +1,4 @@
-class CreateTweets < ActiveRecord::Migration[5.2]
+class CreateTweets < ActiveRecord::Migration[7.1]
   def change
     create_table :tweets do |t|
       t.references :user, foreign_key: true
